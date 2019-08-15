@@ -147,6 +147,9 @@ dplyr::count_()
 dplyr::tally()
 dplyr::tally_()
 
+## Apply predicate to all variables
+dplyr::all_vars()
+dplyr::any_vars()
 
 ## structure
 
@@ -154,8 +157,7 @@ dplyr::tally_()
 
 dplyr::add_rownames()
 dplyr::all_equal()
-dplyr::all_vars()
-dplyr::any_vars()
+
 dplyr::as_label()
 dplyr::as.tbl()
 dplyr::as.tbl_cube()
