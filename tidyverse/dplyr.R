@@ -30,15 +30,15 @@ for (idx in sel_val) {
 # There’s a consistent naming scheme: the SE is the NSE name with _ on the end. 
 # For example, the SE version of summarise() is summarise_(), the SE version of arrange() is arrange_(). 
 # These functions work very similarly to their NSE cousins, but the inputs must be “quoted”
-
+iris %>% 
+  select_vars(include = chr('Sepal'))
 # 기본
-dplyr::glimpse()
-dplyr::as_tibble()
 dplyr::select()
 dplyr::filter()
 dplyr::group_by()
 dplyr::mutate()
 dplyr::arrange()
+dplyr::desc()
 dplyr::distinct()
 
 
@@ -48,14 +48,12 @@ dplyr::arrange_()
 dplyr::arrange_all()
 dplyr::arrange_at()
 dplyr::arrange_if()
-dplyr::as_data_frame()
 dplyr::collect()
 dplyr::distinct_()
 dplyr::distinct_all()
 dplyr::distinct_at()
 dplyr::distinct_if()
-dplyr::ends_with()
-dplyr::everything()
+
 dplyr::filter_()
 dplyr::filter_all()
 dplyr::filter_at()
@@ -64,7 +62,6 @@ dplyr::group_by_()
 dplyr::group_by_all()
 dplyr::group_by_at()
 dplyr::group_by_if()
-dplyr::if_else()
 dplyr::intersect()
 dplyr::lag()
 dplyr::lead()
@@ -87,7 +84,7 @@ dplyr::select_if()
 dplyr::select_var()
 dplyr::select_vars()
 dplyr::select_vars_()
-dplyr::starts_with()
+
 dplyr::summarise()
 dplyr::summarise_()
 dplyr::summarize_all()
@@ -95,20 +92,29 @@ dplyr::summarize_at()
 dplyr::summarize_each()
 dplyr::summarize_each_()
 dplyr::summarize_if()
-dplyr::sym()
-dplyr::tibble()
 dplyr::transmute()
 dplyr::transmute_()
 dplyr::transmute_all()
 dplyr::transmute_at()
 dplyr::transmute_if()
-dplyr::tribble()
 dplyr::ungroup()
 dplyr::union()
 dplyr::union_all()
 dplyr::coalesce()
-dplyr::add_row()
 
+
+## condition
+dplyr::if_else()
+dplyr::case_when()
+starwars %>%
+  select(name:mass, gender, species) %>%
+  mutate(
+    type = case_when(
+      height > 200 | mass > 200 ~ "large",
+      species == "Droid"        ~ "robot",
+      TRUE                      ~ "other"
+    )
+  )
 
 ## join
 dplyr::semi_join()
@@ -151,38 +157,94 @@ dplyr::tally_()
 dplyr::all_vars()
 dplyr::any_vars()
 
-## structure
+## tbl
+dplyr::tbl()
+dplyr::tbl_cube()
+dplyr::tbl_df()
+dplyr::as.tbl()
+dplyr::as.tbl_cube()
+dplyr::is.tbl()
+
+# Objects exported from other packages
+# from magrittr
+dplyr::`%>%`()
+
+# from tibble
+dplyr::data_frame()
+dplyr::data_frame_()
+dplyr::as_data_frame()
+dplyr::lst()
+dplyr::lst_()
+dplyr::add_row()
+dplyr::type_sum()
+dplyr::glimpse()
+dplyr::frame_data()
+dplyr::tibble()
+dplyr::tribble()
+dplyr::as_tibble()
+dplyr::trunc_mat()
+dplyr::tbl_sum()
+
+# from tidyselect
+dplyr::contains()
+dplyr::ends_with()
+dplyr::everything()
+dplyr::matches()
+dplyr::num_range()
+dplyr::one_of()
+dplyr::starts_with()
+dplyr::last_col()
+
+# Tidy eval helpers
+dplyr::sym()
+dplyr::syms()
+dplyr::enquo()
+dplyr::enquos()
+dplyr::expr()
+dplyr::as_label()
+
+# Evaluate, compare, benchmark operations of a set of srcs.
+dplyr::bench_tbls()
+dplyr::compare_tbls()
+dplyr::compare_tbls2()
+dplyr::eval_tbls()
+dplyr::eval_tbls2()
+
+# Efficiently bind multiple data frames by row and column
+dplyr::bind_cols()
+dplyr::bind_rows()
+
+# Cumulativate versions of any, all, and mean
+dplyr::cumall()
+dplyr::cumany()
+dplyr::cummean()
+
+
+# Print the location in memory of a data frame
+dplyr::location()
+dplyr::changes()
+
 
 ## 처음 보는 것
 
 dplyr::add_rownames()
 dplyr::all_equal()
-
-dplyr::as_label()
-dplyr::as.tbl()
-dplyr::as.tbl_cube()
 dplyr::auto_copy()
-dplyr::bench_tbls()
+
 dplyr::between()
-dplyr::bind_cols()
-dplyr::bind_rows()
-dplyr::case_when()
-dplyr::changes()
+iris[between(iris$Sepal.Length, 3, 5), ]
+
+
 dplyr::check_dbplyr()
+
 dplyr::collapse()
+dplyr::compute()
+
 dplyr::combine()
 dplyr::common_by()
-dplyr::compare_tbls()
-dplyr::compare_tbls2()
-dplyr::compute()
-dplyr::contains()
+
 dplyr::copy_to()
-dplyr::cumall()
-dplyr::cumany()
-dplyr::cummean()
 dplyr::current_vars()
-dplyr::data_frame()
-dplyr::data_frame_()
 dplyr::db_analyze()
 dplyr::db_begin()
 dplyr::db_commit()
@@ -201,7 +263,6 @@ dplyr::db_query_rows()
 dplyr::db_rollback()
 dplyr::db_save_query()
 dplyr::db_write_table()
-dplyr::desc()
 dplyr::dim_desc()
 dplyr::distinct_prepare()
 dplyr::do()
@@ -209,17 +270,11 @@ dplyr::do_()
 dplyr::dr_dplyr()
 dplyr::enexpr()
 dplyr::enexprs()
-dplyr::enquo()
-dplyr::enquos()
 dplyr::ensym()
 dplyr::ensyms()
-dplyr::eval_tbls()
-dplyr::eval_tbls2()
 dplyr::explain()
-dplyr::expr()
 dplyr::failwith()
 dplyr::first()
-dplyr::frame_data()
 dplyr::funs()
 dplyr::funs_()
 dplyr::group_by_drop_default()
@@ -246,21 +301,16 @@ dplyr::ident()
 dplyr::is_grouped_df()
 dplyr::is.grouped_df()
 dplyr::is.src()
-dplyr::is.tbl()
 dplyr::last()
-dplyr::last_col()
-dplyr::location()
-dplyr::lst()
-dplyr::lst_()
 dplyr::make_tbl()
-dplyr::matches()
+
 dplyr::n_groups()
 dplyr::na_if()
 dplyr::near()
 dplyr::new_grouped_df()
 dplyr::nth()
-dplyr::num_range()
-dplyr::one_of()
+
+
 dplyr::order_by()
 dplyr::progress_estimated()
 dplyr::pull()
@@ -298,20 +348,73 @@ dplyr::src_mysql()
 dplyr::src_postgres()
 dplyr::src_sqlite()
 dplyr::src_tbls()
-dplyr::syms()
-dplyr::tbl()
-dplyr::tbl_cube()
-dplyr::tbl_df()
+
 dplyr::tbl_nongroup_vars()
-dplyr::tbl_sum()
 dplyr::tbl_vars()
 dplyr::top_frac()
 dplyr::top_n()
-dplyr::trunc_mat()
-dplyr::type_sum()
 dplyr::validate_grouped_df()
 dplyr::vars()
 dplyr::with_order()
 dplyr::wrap_dbplyr_obj()
-dplyr::`%>%`()
 
+
+
+# 사용할 필요 없음
+# iris %>% 
+# select(select_vars(names(iris), everything()))
+# select_vars(names(iris), starts_with("Petal"))
+# select_vars(names(iris), ends_with("Width"))
+# select_vars(names(iris), contains("etal"))
+# select_vars(names(iris), matches(".t."))
+# select_vars(names(iris), Petal.Length, Petal.Width)
+# select_vars(names(iris), one_of("Petal.Length", "Petal.Width"))
+
+iris %>% 
+  select(matches('Se'))
+df <- as.data.frame(matrix(runif(100), nrow = 10))
+df <- df[c(3, 4, 7, 1, 9, 8, 5, 2, 6, 10)]
+select_vars(names(df), num_range("V", 4:6))
+
+# Drop variables
+select_vars(names(iris), -starts_with("Petal"))
+select_vars(names(iris), -ends_with("Width"))
+select_vars(names(iris), -contains("etal"))
+select_vars(names(iris), -matches(".t."))
+select_vars(names(iris), -Petal.Length, -Petal.Width)
+
+# Rename variables
+select_vars(names(iris), petal_length = Petal.Length)
+select_vars(names(iris), petal = starts_with("Petal"))
+
+# Rename variables preserving all existing - 사용할 수 있을 수 있음
+iris %>% select(
+rename_vars(names(iris), petal_length = Petal.Length))
+
+# You can unquote names or formulas (or lists of)
+select_vars(names(iris), !!! list(quo(Petal.Length)))
+select_vars(names(iris), !! quote(Petal.Length))
+
+# The .data pronoun is available:
+# select_vars(names(mtcars), .data$cyl)
+# select_vars(names(mtcars), .data$mpg : .data$disp)
+
+# However it isn't available within calls since those are evaluated
+# outside of the data context. This would fail if run:
+# select_vars(names(mtcars), identical(.data$cyl))
+
+
+# If you're writing a wrapper around select_vars(), pass the dots
+# via splicing to avoid matching dotted arguments to select_vars()
+# named arguments (`vars`, `include` and `exclude`):
+# wrapper <- function(...) {
+#   select_vars(names(mtcars), !!! quos(...))
+# }
+# 
+# # This won't partial-match on `vars`:
+# wrapper(var = cyl)
+# 
+# # This won't match on `include`:
+# wrapper(include = cyl)
+# wrapper(include = cyl, a = carb)
+# }
