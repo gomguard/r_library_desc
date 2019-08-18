@@ -43,12 +43,11 @@ dplyr::distinct()
 
 
 # 고급
-
 dplyr::arrange_()
 dplyr::arrange_all()
 dplyr::arrange_at()
 dplyr::arrange_if()
-dplyr::collect()
+
 dplyr::distinct_()
 dplyr::distinct_all()
 dplyr::distinct_at()
@@ -58,6 +57,7 @@ dplyr::filter_()
 dplyr::filter_all()
 dplyr::filter_at()
 dplyr::filter_if()
+
 dplyr::group_by_()
 dplyr::group_by_all()
 dplyr::group_by_at()
@@ -196,6 +196,10 @@ dplyr::starts_with()
 dplyr::last_col()
 
 # Tidy eval helpers
+dplyr::enexpr()
+dplyr::enexprs()
+dplyr::ensym()
+dplyr::ensyms()
 dplyr::sym()
 dplyr::syms()
 dplyr::enquo()
@@ -225,26 +229,7 @@ dplyr::location()
 dplyr::changes()
 
 
-## 처음 보는 것
-
-dplyr::add_rownames()
-dplyr::all_equal()
-dplyr::auto_copy()
-
-dplyr::between()
-iris[between(iris$Sepal.Length, 3, 5), ]
-
-
-dplyr::check_dbplyr()
-
-dplyr::collapse()
-dplyr::compute()
-
-dplyr::combine()
-dplyr::common_by()
-
-dplyr::copy_to()
-dplyr::current_vars()
+# Database and SQL generics.
 dplyr::db_analyze()
 dplyr::db_begin()
 dplyr::db_commit()
@@ -263,15 +248,47 @@ dplyr::db_query_rows()
 dplyr::db_rollback()
 dplyr::db_save_query()
 dplyr::db_write_table()
+dplyr::sql()
+dplyr::sql_escape_ident()
+dplyr::sql_escape_string()
+dplyr::sql_join()
+dplyr::sql_select()
+dplyr::sql_semi_join()
+dplyr::sql_set_op()
+dplyr::sql_subquery()
+dplyr::sql_translate_env()
+
+
+# Force computation of a database query
+dplyr::collapse()
+dplyr::compute()
+dplyr::collect()
+
+
+## 처음 보는 것
+
+dplyr::add_rownames()
+dplyr::all_equal()
+dplyr::auto_copy()
+
+dplyr::between()
+iris[between(iris$Sepal.Length, 3, 5), ]
+
+
+dplyr::check_dbplyr()
+
+
+dplyr::combine()
+dplyr::common_by()
+
+dplyr::copy_to()
+dplyr::current_vars()
+
 dplyr::dim_desc()
 dplyr::distinct_prepare()
 dplyr::do()
 dplyr::do_()
 dplyr::dr_dplyr()
-dplyr::enexpr()
-dplyr::enexprs()
-dplyr::ensym()
-dplyr::ensyms()
 dplyr::explain()
 dplyr::failwith()
 dplyr::first()
@@ -279,17 +296,38 @@ dplyr::funs()
 dplyr::funs_()
 dplyr::group_by_drop_default()
 dplyr::group_by_prepare()
+
+
 dplyr::group_cols()
+  s_dt <- iris %>% group_by(Species)
+  s_dt %>% select(group_cols())
+
+
 dplyr::group_data()
+dplyr::group_rows()
+iris %>% 
+  group_by(Sepal.Length) %>% 
+  group_data()
+  group_rows()
+
+
 dplyr::group_indices()
 dplyr::group_indices_()
+  group_indices(iris, Species)
+  group_indices_(iris, 'Species')
+
 dplyr::group_keys()
+dplyr::group_split()
+iris %>% group_by(Species) %>% 
+  group_split()
+  group_keys()
+
 dplyr::group_map()
 dplyr::group_modify()
 dplyr::group_nest()
-dplyr::group_rows()
+
 dplyr::group_size()
-dplyr::group_split()
+
 dplyr::group_trim()
 dplyr::group_vars()
 dplyr::group_walk()
@@ -332,15 +370,6 @@ dplyr::setequal()
 dplyr::show_query()
 dplyr::slice()
 dplyr::slice_()
-dplyr::sql()
-dplyr::sql_escape_ident()
-dplyr::sql_escape_string()
-dplyr::sql_join()
-dplyr::sql_select()
-dplyr::sql_semi_join()
-dplyr::sql_set_op()
-dplyr::sql_subquery()
-dplyr::sql_translate_env()
 dplyr::src()
 dplyr::src_df()
 dplyr::src_local()
