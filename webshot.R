@@ -12,6 +12,10 @@ webshot::install_phantomjs()
 #         file = c("leaflet_features.png", "leaflet_install.png"),
 #         selector = list("#features", "#installation"))
 
+# docker 설치 - selenium 설치 in terminal
+curl -fsSL https://get.docker.com/ | sudo sh 
+docker pull selenium/standalone-chrome
+
 
 dir.create('./screenshot')
 
@@ -41,3 +45,12 @@ for (idx in seq_along(url_list)) {
 library(rvest)
 install.packages('RSelenium')
 
+library(RSelenium)
+
+library(curl)
+
+remDr <- remoteDriver(remoteServerAddr = 'localhost',
+                      port = 8080L, # 포트번호 입력
+                      browserName = "chrome")
+
+remDr$open()
